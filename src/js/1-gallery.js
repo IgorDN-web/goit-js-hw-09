@@ -1,7 +1,7 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
-
+// Данные изображений
 const images = [
   {
     preview:
@@ -68,21 +68,31 @@ const images = [
   },
 ];
 
+// Ссылка на контейнер галереи
 const galleryContainer = document.querySelector('.gallery');
-const galleryMarkup = images
-  .map(({ preview, original, description }) => `
-    <li class="gallery-item">
-      <a class="gallery-link" href="${original}">
-        <img class="gallery-image" src="${preview}" alt="${description}" />
-      </a>
-    </li>
-  `)
-  .join('');
 
-galleryContainer.innerHTML = galleryMarkup;
+// Проверка наличия контейнера
+if (galleryContainer) {
+  // Генерация разметки
+  const galleryMarkup = images
+    .map(({ preview, original, description }) => `
+      <li class="gallery-item">
+        <a class="gallery-link" href="${original}">
+          <img class="gallery-image" src="${preview}" alt="${description}" />
+        </a>
+      </li>
+    `)
+    .join('');
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+  // Вставка разметки в DOM
+  galleryContainer.innerHTML = galleryMarkup;
+
+  // Инициализация SimpleLightbox
+  new SimpleLightbox('.gallery a', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+} else {
+  console.error("Контейнер с классом 'gallery' не найден в DOM.");
+}
