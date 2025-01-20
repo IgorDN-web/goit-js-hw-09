@@ -1,4 +1,4 @@
-import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css               */function R(g){return g&&g.__esModule&&Object.prototype.hasOwnProperty.call(g,"default")?g.default:g}var X={};(function(g){/*!
+function R(g){return g&&g.__esModule&&Object.prototype.hasOwnProperty.call(g,"default")?g.default:g}var X={};(function(g){/*!
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
