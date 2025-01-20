@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
 
 // Сохранение данных при вводе
 form.addEventListener('input', (event) => {
-  formData[event.target.name] = event.target.value.trim();
+  formData[event.target.name] = event.target.value.trim() || '';
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 });
 
@@ -28,7 +28,7 @@ form.addEventListener('input', (event) => {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  if (!formData.email || !formData.message) {
+  if (!formData.email.trim() || !formData.message.trim()) {
     alert('Заполните все поля');
     return;
   }

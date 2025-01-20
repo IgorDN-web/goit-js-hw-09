@@ -75,14 +75,15 @@ const galleryContainer = document.querySelector('.gallery');
 if (galleryContainer) {
   // Генерация разметки
   const galleryMarkup = images
-    .map(({ preview, original, description }) => `
-      <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
-          <img class="gallery-image" src="${preview}" alt="${description}" />
-        </a>
-      </li>
-    `)
-    .join('');
+  .map(({ preview, original, description }) => 
+    `<li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img class="gallery-image" src="${preview}" alt="${description}" />
+      </a>
+    </li>`
+  )
+  .join('');
+
 
   // Вставка разметки в DOM
   galleryContainer.innerHTML = galleryMarkup;
@@ -93,6 +94,4 @@ if (galleryContainer) {
     captionsData: 'alt',
     captionDelay: 250,
   });
-} else {
-  console.error("Контейнер с классом 'gallery' не найден в DOM.");
-}
+} 
