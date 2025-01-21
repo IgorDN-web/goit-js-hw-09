@@ -68,31 +68,30 @@ const images = [
   },
 ];
 
+
 // Ссылка на контейнер галереи
 const galleryContainer = document.querySelector('.gallery');
 
-// Проверка наличия контейнера
-if (galleryContainer) {
-  // Генерация разметки
-  const galleryMarkup = images
-    .map(({ preview, original, description }) => `
-      <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
-          <img class="gallery-image" src="${preview}" alt="${description}" />
-        </a>
-      </li>
-    `)
-    .join('');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-  // Вставка разметки в DOM
-  galleryContainer.innerHTML = galleryMarkup;
+const gallery = document.querySelector('.gallery');
 
-  // Инициализация SimpleLightbox
-  new SimpleLightbox('.gallery a', {
-    captions: true,
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-} else {
-  console.error("Контейнер с классом 'gallery' не найден в DOM.");
-}
+const markup = data.map(({ preview, original, description }) => {
+  return `<li class="gallery-item hvr-grow">
+  <a class="gallery-link " href="${original}">
+    <img
+      class="gallery-image"
+      src="${preview}"
+      alt="${description}"
+    />
+  </a>
+</li>`;
+});
+
+gallery.insertAdjacentHTML('beforeend', markup.join(''));
+
+new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});

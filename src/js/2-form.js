@@ -1,41 +1,66 @@
-const formData = {
-  email: '',
-  message: '',
-};
-
+const formState = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
-const emailInput = form.querySelector('[name="email"]');
-const messageInput = form.querySelector('[name="message"]');
 
-// Загрузка данных из локального хранилища при загрузке страницы
-window.addEventListener('load', () => {
-  const savedData = JSON.parse(localStorage.getItem('feedback-form-state'));
-  if (savedData) {
-    emailInput.value = savedData.email || '';
-    messageInput.value = savedData.message || '';
-    formData.email = savedData.email || '';
-    formData.message = savedData.message || '';
+// get local storage data
+const localState = JSON.parse(localStorage.getItem(formState));
+
+if (localState) {
+  // fill form fields from local storage
+  for (const key of Object.keys(localState)) {
+    document.querySelector(`[name="${key}"]`).value = localState[key];
   }
-});
+}
 
-// Сохранение данных при вводе
-form.addEventListener('input', (event) => {
-  formData[event.target.name] = event.target.value.trim();
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-});
+// event to fill in form state object **//
+form.addEventListener('input', onInputSaveToLocalStorage);
 
-// Обработка отправки формы
-form.addEventListener('submit', (event) => {
+// save form form data to local storage **//
+form.addEventListener('submit', onSubmitForm);
+
+function onInputSaveToLocalStorage(event) {
+  const key = event.target.name;
+  const updatedStorage = {
+    ...JSON.parse(localStorage.getItem(formState)),
+    [key]: event.target.value.trim(),
+  };
+
+  localStorage.setItem(formState, JSON.stringify(updatedStorage));
+}
+
+function onSubmitForm(event) {
   event.preventDefault();
 
-  if (!formData.email || !formData.message) {
-    alert('Заполните все поля');
-    return;
+  const formData = new FormData(event.target);
+  const formDataObj = Object.fromEntries(formData.entries());
+  if (validateFormFields(formDataObj)) {
+    // according requirement of Homework 9
+    console.log('submit', formDataObj);
+
+    localStorage.removeItem(formState);
+
+    event.target.reset();
+  }
+}
+
+function validateFormFields(formDataObj) {
+  let isValid = true;
+  for (const key in formDataObj) {
+    if (!formDataObj[key]) {
+      addBorderInputError(document.querySelector(`[name="${key}"]`));
+      isValid = false;
+    }
+    if (formDataObj[key]) {
+      removeBorderInputError(document.querySelector(`[name="${key}"]`));
+    }
   }
 
-  console.log(formData);
-  localStorage.removeItem('feedback-form-state');
-  form.reset();
-  formData.email = '';
-  formData.message = '';
-});
+  return isValid;
+}
+
+function addBorderInputError(input) {
+  input.classList.add('error');
+}
+
+function removeBorderInputError(input) {
+  input.classList.remove('error');
+}
