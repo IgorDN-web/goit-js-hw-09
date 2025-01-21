@@ -68,16 +68,11 @@ const images = [
   },
 ];
 
-
 // Ссылка на контейнер галереи
 const galleryContainer = document.querySelector('.gallery');
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-const gallery = document.querySelector('.gallery');
-
-const markup = data.map(({ preview, original, description }) => {
+// Генерация разметки
+const markup = images.map(({ preview, original, description }) => {
   return `<li class="gallery-item hvr-grow">
   <a class="gallery-link " href="${original}">
     <img
@@ -87,10 +82,12 @@ const markup = data.map(({ preview, original, description }) => {
     />
   </a>
 </li>`;
-});
+}).join('');
 
-gallery.insertAdjacentHTML('beforeend', markup.join(''));
+// Вставка разметки в DOM
+galleryContainer.insertAdjacentHTML('beforeend', markup);
 
+// Инициализация SimpleLightbox
 new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
