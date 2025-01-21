@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: lightgray;
+  background-color: rgb(255, 255, 255);
 }
 
 a {
@@ -10,13 +10,13 @@ a {
   align-items: center;
   text-decoration: none;
   font-size: 20px;
-  color: #2e2f42;
+  color: #000000;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   line-height: 1.5;
 }
 
 a:hover {
-  color: lightcoral;
+  color: rgb(5, 5, 5);
 }
 
 a:hover::after {
@@ -121,13 +121,13 @@ button {
 
 .feedback-form input {
   border: none;
-  border: 1px solid #808080;
+  border: 1px solid #fbfbfb;
   border-radius: 4px;
   height: 40px;
 }
 
 textarea {
-  border: 1px solid #808080;
+  border: 1px solid #f7f2f2;
   border-radius: 8px;
   resize: none;
 }
@@ -150,7 +150,7 @@ textarea:hover {
 
 input:focus,
 textarea:focus {
-  border: 1px solid #808080;
+  border: 1px solid #1b1b1b;
 }
 
 button {
@@ -172,5 +172,5 @@ button:focus {
 }
 
 .error {
-  border: 1px solid tomato !important;
+  border: 1px solid rgb(9, 9, 9) !important;
 }
